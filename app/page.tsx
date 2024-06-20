@@ -2,8 +2,11 @@
 import React, { FC, useState } from "react";
 import Heading from "./utils/Heading";
 import Header from "./components/Header/Header";
-import Hero from "./components/Hero/Hero";
 import Footer from "./components/Footer/Footer";
+import Hero from "./components/Home/Hero";
+import Courses from "./components/Home/Courses";
+import Review from "./components/Home/Review";
+import FAQ from "./components/FAQ/FAQ";
 
 interface Props {}
 
@@ -27,6 +30,9 @@ const Page: FC<Props> = (props) => {
         route={route}
       />
       <Hero />
+      <Courses />
+      <Review />
+      <FAQ  />
       <Footer />
     </div>
   )

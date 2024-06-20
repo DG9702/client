@@ -2,7 +2,7 @@
 import React, {FC, useState} from 'react';
 import Heading from '../utils/Heading'
 import Header from '../components/Header/Header'
-import Hero from '../components/Hero/Hero'
+import Hero from '../components/Home/Hero'
 import Protected from '../hooks/useProtected';
 import Profile from '../components/Profile/Profile';
 import {useSelector} from 'react-redux';
@@ -30,8 +30,8 @@ const Page: FC<Props>=(props) => {
                     setRoute={setRoute}
                     route={route}
                 />
+                <Profile user={user} />
             </Protected>
-            <Profile user={user} />
         </div>
     )
 }
