@@ -1,5 +1,6 @@
-import React, {FC, useState} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 import {styles} from '../../Styles/style';
+import {useGetHeroDataQuery} from '@/redux/features/layout/layoutApi';
 
 type Props = {
   courseInfo: any;
@@ -15,7 +16,16 @@ const CourseInformation: FC<Props> = ({
     active,
     setActive, 
 }) => {
-    const [dragging,setDragging]=useState(false);
+    const [dragging, setDragging]=useState(false);
+    
+    const { data } = useGetHeroDataQuery("Categories", {});
+    const [categories, setCategories]=useState([]);
+    
+    useEffect(() => {
+        if (data) {
+            setCategories(data.layout.categories);
+        }
+    }, [data]);
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
@@ -72,9 +82,7 @@ const CourseInformation: FC<Props> = ({
                         onChange={(e:any)=>setCourseInfo({...courseInfo,name:e.target.value})}
                         id="name"
                         placeholder="MERN stack LMS platform with next 13"
-                        className={` mt-2
-                            ${styles.input}
-                        `}
+                        className={`${styles.input}`}
                     />
 
                 </div>
@@ -82,7 +90,7 @@ const CourseInformation: FC<Props> = ({
                 <div className='mb-5'>
                     <label className={`${styles.label}`}>Course Description</label>
                     <textarea name="" id="" cols={30} rows={8} placeholder='Write something amazing' 
-                        className={`mt-2 ${styles.input} !h-min !py-5`} 
+                        className={`${styles.input} !h-min !py-5`} 
                         value={courseInfo.description} 
                         onChange={(e:any)=>setCourseInfo({...courseInfo,description:e.target.value})}
                     >
@@ -100,7 +108,7 @@ const CourseInformation: FC<Props> = ({
                             onChange={(e:any)=>setCourseInfo({...courseInfo,price:e.target.value})}
                             id="price"
                             placeholder="29"
-                            className={`mt-2 ${styles.input}`}
+                            className={`${styles.input}`}
                         />
                         
 
@@ -115,7 +123,7 @@ const CourseInformation: FC<Props> = ({
                             onChange={(e:any)=>setCourseInfo({...courseInfo,estimatedPrice:e.target.value})}
                             id="estimatedPrice"
                             placeholder="79"
-                            className={`mt-2 ${styles.input}`}
+                            className={`${styles.input}`}
                         />
                         
 
@@ -133,13 +141,33 @@ const CourseInformation: FC<Props> = ({
                             value={courseInfo.tags}
                             onChange={(e:any)=>setCourseInfo({...courseInfo,tags:e.target.value})}
                             id="tags"
-                            placeholder="MERN,Next 13 Socket io,tailwindcss ,LMS"
-                            className={`mt-2 ${styles.input}`}
+                            placeholder="MERN,Next 13 Socket io, tailwindcss ,LMS"
+                            className={`${styles.input}`}
                         />
-                        
-
                     </div>
 
+                    <div className="w-[50%]">
+                        <label className={`${styles.label}`}>
+                            Course Categories
+                        </label>
+                        <select
+                            name=""
+                            id=""
+                            className={`${styles.input} hover:cursor-pointer`}
+                            value={courseInfo.category}
+                            onChange={(e: any) =>
+                                setCourseInfo({ ...courseInfo, categories: e.target.value })
+                            }
+                        >
+                        <option value="" className="dark:bg-black">Select Category</option>
+                        {categories &&
+                            categories.map((item: any) => (
+                            <option className="dark:bg-black" value={item.title} key={item._id}>
+                                {item.title}
+                            </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
                 <br/>
                 <div className='w-full flex justify-between'>
@@ -153,7 +181,7 @@ const CourseInformation: FC<Props> = ({
                             onChange={(e:any)=>setCourseInfo({...courseInfo,level:e.target.value})}
                             id="level"
                             placeholder="Beginner/Intermediate/Expert"
-                            className={`mt-2 ${styles.input}`}
+                            className={`${styles.input}`}
                         />
                         
 
@@ -168,7 +196,7 @@ const CourseInformation: FC<Props> = ({
                             onChange={(e:any)=>setCourseInfo({...courseInfo,demoUrl:e.target.value})}
                             id="demoUrl"
                             placeholder="eer74fd"
-                            className={`mt-2 ${styles.input}`}
+                            className={`${styles.input}`}
                         />
                         
 
@@ -186,7 +214,7 @@ const CourseInformation: FC<Props> = ({
                     />
                     <label 
                         htmlFor="file" 
-                        className={`mt-2 w-full min-h-[10vh] dark:border-white border-[#00000026] p-3 border flex items-center justify-center ${dragging ? "bg-blue-500" :"bg-transparent"}`}
+                        className={`w-full min-h-[10vh] dark:border-white border-[#00000026] p-3 border flex items-center justify-center ${dragging ? "bg-blue-500" :"bg-transparent"}`}
                         onDragOver={handleDragOver}
                         onDragLeave={handleDragLeave}
                         onDrop={handleDrop}

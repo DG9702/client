@@ -1,8 +1,10 @@
+'use client'
+import UsersAnalytics from "@/app/components/Admin/Analytics/UsersAnalytics";
+import DashBoardHero from "@/app/components/Admin/DashboardHero";
+import AdminSidebar from "@/app/components/Admin/sidebar/AdminSidebar";
+import AdminProtected from "@/app/hooks/adminProtected";
+import Heading from "@/app/utils/Heading";
 import React, {FC} from "react";
-import Heading from "../utils/Heading";
-import AdminSidebar from "../components/Admin/sidebar/AdminSidebar";
-import AdminProtected from "../hooks/adminProtected";
-import DashBoardHero from "../components/Admin/DashboardHero";
 
 type Props = {};
 
@@ -11,7 +13,7 @@ const page: FC<Props> = (props: Props) => {
     <div> 
       <AdminProtected>
         <Heading
-            title="Elearning - Admin"
+            title="Users Analytics | Dev-Learning - Admin"
             description="Elearning is a platform for students to learn and get help from teachers"
             keywords="Programming,MERN,Redux,Machine Learning"
           />
@@ -20,7 +22,8 @@ const page: FC<Props> = (props: Props) => {
               <AdminSidebar />
             </div>
             <div className="w-[85%]">
-              <DashBoardHero isDashboard={true} />
+                <DashBoardHero />
+                <UsersAnalytics  />
           </div>
           </div>
       </AdminProtected>
