@@ -43,69 +43,77 @@ const CourseData:FC<Props> = ({
         if(benefits[benefits.length-1]?.title!=="" && prerequisites[prerequisites.length-1]?.title!==""){
             setActive(active+1);
         }else{
-            toast.error("Please fill the fields for go to next")
+            toast.error("Vui lòng điền vào các trường để chuyển sang bước tiếp theo")
         }
     }
   return (
     <div className='w-[80%] m-auto mt-24 block'>
-        <div>
-            <label className={`${styles.label} text-[20px]`} htmlFor="email">
-                What are the benefits for students in this course?
-            </label>
-            <br/>
-            {
-                benefits.map((benefit:any,index:number)=>(
-                    <input 
-                        type="text"
-                        key={index}
-                        name="Benefit"
-                        placeholder="You will be able to build a full stack LMS Platform..."
-                        value={benefit.title}
-                        className={`${styles.input}`}
-                        onChange={(e)=>handleBenefitChange(index,e.target.value)}
-                    />
-                ))
-            }
-            <AddCircleIcon 
-                style={{margin:"10px 0px",cursor:"pointer",width:"30px"}}
-                onClick={handleAddBenefit}
-            />
-        </div>
-        <div>
-            <label className={`${styles.label} text-[20px]`} htmlFor="email">
-                What are the prerequisites for starting this course?
-            </label>
-            <br/>
-            {
-                prerequisites.map((prerequisites:any,index:number)=>(
-                    <input 
-                        type="text"
-                        key={index}
-                        name="prerequisites"
-                        placeholder="You need basic knowledge of MERN stack"
-                        className={`${styles.input} my-2`}
-                        value={prerequisites.title}
-                        onChange={(e)=>handlePrerequisitesChange(index,e.target.value)}
-                    />
-                ))
-            }
-            <AddCircleIcon 
-                style={{margin:"10px 0px",cursor:"pointer",width:"30px"}}
-                onClick={handleAddPrerequisites}
-            />
+        <div className='bg-white dark:bg-[#121212] rounded-lg p-8'>
+            <div>
+                <label className={`${styles.label} text-[20px]`} htmlFor="email">
+                    Lợi ích của học viên khi tham gia khóa học này là gì?
+                </label>
+                    {
+                        benefits.map((benefit:any,index:number)=>(
+                            <div
+                                key={index}
+                                className='relative flex justify-center border border-[#dee3e9] rounded items-center my-2'
+                            >
+                                <input 
+                                    type="text"        
+                                    name="Benefit"
+                                    placeholder="Nhập những lợi ích khi tham gia khóa học này..."
+                                    value={benefit.title}
+                                    className={`${styles.input}`}
+                                    onChange={(e)=>handleBenefitChange(index,e.target.value)}
+                                />
+                            </div>
+                        ))
+                    }
+                <AddCircleIcon 
+                    onClick={handleAddBenefit}
+                    className='text-black dark:text-white cursor-pointer w-[30px] my-[10px]'
+                />
+            </div>
+            <div>
+                <label className={`${styles.label} text-[20px]`} htmlFor="email">
+                    Điều kiện tiên quyết để bắt đầu khóa học này là gì?
+                </label>
+                    {
+                        prerequisites.map((prerequisites:any,index:number)=>(
+                            <div
+                                key={index}
+                                className='relative flex justify-center border border-[#dee3e9] rounded items-center my-2'
+                            >
+                                <input 
+                                    type="text"
+                                    name="prerequisites"
+                                    placeholder="Nhập những điều kiện để học khóa học"
+                                    className={`${styles.input}`}
+                                    value={prerequisites.title}
+                                    onChange={(e)=>handlePrerequisitesChange(index,e.target.value)}
+                                />
+                            </div>
+                        ))
+                    }
+                <AddCircleIcon 
+                    onClick={handleAddPrerequisites}
+                    className='text-black dark:text-white cursor-pointer w-[30px] my-[10px]'
+                />
+            </div>
         </div>
         <div className='w-full flex items-center justify-between'>
             <div 
-                className='w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 over:cursor-pointer'
+                className='w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#2190ff] text-center text-[#fff] rounded mt-8 over:cursor-pointer'
                 onClick={()=>prevButton()}
             >
-                Prev
+                Quay lại
             </div>
             <div 
-                className='w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#37a39a] text-center text-[#fff] rounded mt-8 hover:cursor-pointer'
+                className='w-full 800px:w-[180px] flex items-center justify-center h-[40px] bg-[#2190ff] text-center text-[#fff] rounded mt-8 hover:cursor-pointer'
                 onClick={()=>handleOptions()}
             >
-                Next
+                Tiếp tục
             </div>
 
         </div>

@@ -1,5 +1,4 @@
 'use client'
-
 import DashboardHeader from "@/app/components/Admin/DashboardHeader"
 import AllInvoices from "@/app/components/Admin/Order/AllInvoices"
 import AdminSidebar from "@/app/components/Admin/sidebar/AdminSidebar"

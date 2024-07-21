@@ -6,6 +6,7 @@ import Hero from '../components/Home/Hero'
 import Protected from '../hooks/useProtected';
 import Profile from '../components/Profile/Profile';
 import {useSelector} from 'react-redux';
+import Footer from '../components/Footer/Footer';
 
 type Props={}
 
@@ -16,7 +17,7 @@ const Page: FC<Props>=(props) => {
     const {user}=useSelector((state: any) => state.auth)
 
     return (
-        <div>
+        <>
             <Protected>
                 <Heading
                     title={`${user?.name} | Dev-Learning`}
@@ -31,8 +32,9 @@ const Page: FC<Props>=(props) => {
                     route={route}
                 />
                 <Profile user={user} />
+                <Footer  />
             </Protected>
-        </div>
+        </>
     )
 }
 

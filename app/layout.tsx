@@ -1,7 +1,5 @@
 'use client'
-import './globals.css'
-import type {Metadata} from 'next'
-import {Poppins} from "next/font/google";
+import { Roboto } from "next/font/google";
 import {Josefin_Sans} from "next/font/google";
 import {Toaster} from 'react-hot-toast';
 import {ThemeProvider} from './utils/theme-provider';
@@ -9,15 +7,16 @@ import {Providers} from './Provider';
 import { SessionProvider } from 'next-auth/react';
 import {useLoadUserQuery} from '@/redux/features/api/apiSlice';
 import Loader from './components/Loader/Loader';
+import './globals.css'
 
-const poppins=Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-Poppins",
+const robotos = Roboto({
+  subsets: ["vietnamese"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+  variable: "--font-Roboto",
 })
 
 const josefin=Josefin_Sans({
-  subsets: ["latin"],
+  subsets: ["vietnamese"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-Josefin",
 })
@@ -28,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} ${josefin.variable} !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}>
+    <html lang="en" suppressHydrationWarning={true}>
+      <body className={`${robotos.variable} ${josefin.variable} !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-black dark:to-black duration-300`}>
         <Providers>
           <SessionProvider>
             <ThemeProvider 
@@ -47,7 +46,7 @@ export default function RootLayout({
   )
 }
 
-export const Custom:  React.FC<{children:React.ReactNode}> = ({children}) => {
+const Custom:  React.FC<{children:React.ReactNode}> = ({children}) => {
   const {isLoading} = useLoadUserQuery({});
   return (
     <>

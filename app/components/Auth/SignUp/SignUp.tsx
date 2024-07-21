@@ -1,17 +1,20 @@
+"use client"
 import React, {useEffect, useState} from 'react';
 import {useFormik} from "formik";
 import * as Yup from 'yup';
 import {
     AiOutlineEye,
     AiOutlineEyeInvisible,
-    AiFillGithub,
+    AiOutlineClose,
 } from "react-icons/ai";
+import { FaGithub } from "react-icons/fa";
 import { BiSolidError } from "react-icons/bi";
 import toast from "react-hot-toast";
-
+import {signIn} from "next-auth/react";
 import {FcGoogle} from "react-icons/fc";
 import {styles} from '../../Styles/style';
 import {useRegisterMutation} from '@/redux/features/auth/authApi';
+import {GrPrevious} from 'react-icons/gr';
 
 type Props={
     setRoute: (route: string) => void;
@@ -34,7 +37,7 @@ const SignUp: React.FC<Props>=({setRoute, setOpen}) => {
       const message = data?.message || "Registration Successfull";
       toast.success(message);
       formik.resetForm();
-      setRoute("Verification");
+    //  setRoute("Verification");
     }
     if (error) {
       if ("data" in error) {
@@ -61,17 +64,38 @@ const SignUp: React.FC<Props>=({setRoute, setOpen}) => {
     const {errors, touched, values, handleChange, handleSubmit} = formik;
 
     return (
-        <div className="w-full 1000px:px-3">
-            <h1 className={`${styles.title}`}>
-                Đăng ký tài khoản Dev Learning
-            </h1>
+        <div className="w-full">
+            <header className="mt-14">
+                <button
+                  onClick={() => setRoute("Login")}
+                  className="fixed left-[10px] text-[#333] font-medium top-2 flex items-center p-5 text-base opacity-70 hover:opacity-100 dark:text-[#fff]"
+                >
+                    <GrPrevious />
+                    Quay lại  
+                </button>
+                <h1 className={`${styles.title}`}>
+                    Đăng ký
+                </h1>
+                <p className="text-black dark:text-white Roboto text-center opacity-70 mx-10">
+                    Nhập đầy đủ thông tin của bạn để đăng ký tài khoản mới.  
+                </p>
+                <button
+                    onClick={() => setOpen(false)}
+                    className="fixed right-[10px] text-[#222] top-2 flex items-center p-5 text-base dark:text-[#fff]"
+                >
+                    <AiOutlineClose />  
+                </button>
+            </header>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="mx-10">
                 <div className='w-full relative my-1'>
                     <label className={`${styles.label}`} htmlFor="name">
                         Tên của bạn
                     </label>
-                    <div className='relative flex justify-center items-center my-2'>
+                    <div
+                        className={`${errors.name&&touched.name&&"border-red-500"} 
+                                relative flex border border-[#dee3e9] rounded justify-center items-center my-2`}
+                        >
                         <input
                             type="text"
                             name=""
@@ -79,9 +103,9 @@ const SignUp: React.FC<Props>=({setRoute, setOpen}) => {
                             onChange={handleChange}
                             id="name"
                             placeholder="Nhập Tên của bạn"
-                            className={`${errors.name && touched.name && "border-red-500"} ${styles.input}`}
+                            className={`${styles.input}`}
                         />
-                        {errors.name&&touched.name&&(
+                        {errors.name && touched.name&&(
                             <BiSolidError 
                                 className="absolute top-1/2 -translate-y-2/4 right-4 z-10 cursor-pointer fill-red-500"
                                 size={20}
@@ -96,7 +120,10 @@ const SignUp: React.FC<Props>=({setRoute, setOpen}) => {
                     <label className={`${styles.label}`} htmlFor="email">
                         Email
                     </label>
-                    <div className='relative flex justify-center items-center my-2'>
+                    <div
+                        className={`${errors.email && touched.email && "border-red-500"} 
+                        relative flex border border-[#dee3e9] rounded justify-center items-center my-2`}
+                    >
                         <input
                             type="email"
                             name=""
@@ -104,7 +131,7 @@ const SignUp: React.FC<Props>=({setRoute, setOpen}) => {
                             onChange={handleChange}
                             id="email"
                             placeholder="Nhập email"
-                            className={`${errors.email && touched.email && "border-red-500"} ${styles.input}`}
+                            className={`${styles.input}`}
                         />
                         {errors.email&&touched.email&&(
                             <BiSolidError 
@@ -113,7 +140,7 @@ const SignUp: React.FC<Props>=({setRoute, setOpen}) => {
                             />
                         )}
                     </div>
-                    {errors.email&&touched.email&&(
+                    {errors.email && touched.email &&(
                         <span className="text-red-500 block">{errors.email}</span>
                     )}
                 </div>
@@ -122,7 +149,10 @@ const SignUp: React.FC<Props>=({setRoute, setOpen}) => {
                     <label className={`${styles.label}`} htmlFor="password">
                         Mật khẩu
                     </label>
-                    <div className="relative flex justify-center items-center my-2">
+                    <div
+                        className={`${errors.password&&touched.password&&"border-red-500"} 
+                        relative flex border border-[#dee3e9] rounded justify-center items-center my-2`}
+                    >
                         <input
                             type={!show? "password":"text"}
                             name="password"
@@ -150,22 +180,28 @@ const SignUp: React.FC<Props>=({setRoute, setOpen}) => {
                         <span className="text-red-500 block">{errors.password}</span>
                     )}
                 </div>
-                <div className="w-full mt-5">
+                <div className="w-full mt-10">
                     <input type="submit" value="Sign Up" className={`${styles.button}`} />
                 </div>
                 <br />
-                <h5 className="text-center pt-1 font-Poppins text-[14px] text-black dark:text-white">
-                    Or join with
+                <h5 className="text-center pt-4 font-Roboto text-[14px] text-black dark:text-white">
+                    Hoặc đăng nhập bằng
                 </h5>
                 <div className="flex items-center justify-center my-3">
-                    <FcGoogle size={30} className="cursor-pointer mr-2"
-                    //  onClick={()=>signIn("google")}
+                    <FcGoogle 
+                        size={30} 
+                        className="cursor-pointer mr-2"
+                        onClick={()=>signIn("google")}
                     />
-                    <AiFillGithub size={30} className="cursor-pointer ml-2 to-black"
-                    //onClick={()=>signIn("github")}
+                    <FaGithub 
+                        color='#000000'
+                        size={30} 
+                        className="cursor-pointer ml-2 to-black"
+                        onClick={()=>signIn("github")}
                     />
                 </div>
-                <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
+                <br />
+                <h5 className="text-center pt-4 Roboto text-[14px] text-black dark:text-white">
                     Bạn đã có tài khoản?{" "}
                     <span
                         className="text-[#2190ff] pl-1 cursor-pointer"
@@ -173,6 +209,12 @@ const SignUp: React.FC<Props>=({setRoute, setOpen}) => {
                     >
                         Đăng nhập
                     </span>
+                </h5>
+                <h5
+                    className="text-center pt-2 font-Roboto text-[14px] text-[#2190ff] cursor-pointer"
+                    onClick={() => setRoute("forgot-password")}
+                >
+                    Quên mật khẩu
                 </h5>
             </form>
         </div>

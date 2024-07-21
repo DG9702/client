@@ -10,7 +10,7 @@ const Ratings:FC<Props> = ({rating}) => {
     const stars = [];
 
     for(let i = 1 ; i<=5; i++){
-        if(i<=rating){
+        if(i <= rating){
             stars.push(
                 <AiFillStar
                 key={i}
@@ -20,7 +20,7 @@ const Ratings:FC<Props> = ({rating}) => {
             );
         }
         else if(
-            i===Math.ceil(rating) && !Number.isInteger(rating)){
+            i === Math.ceil(rating) && !Number.isInteger(rating)){
                 stars.push(
                     <BsStarHalf key={i}
                     size={17}
@@ -28,7 +28,7 @@ const Ratings:FC<Props> = ({rating}) => {
                     className='mr-2 cursor-pointer' />
                 );
             }
-            else{
+            else {
                 stars.push(
                     <AiOutlineStar
                     key={i}

@@ -30,7 +30,7 @@ const FAQ = (props: Props) => {
           <div className="space-y-8">
             {question.map((q) => (
               <div
-                key={q.id}
+                key={q._id}
                 className={`${
                   q._id !== question[0]?._id && "border-t"
                 } border-gray-200 pt-6`}
@@ -40,7 +40,7 @@ const FAQ = (props: Props) => {
                     className="flex items-start justify-between w-full text-left focus:outline-none"
                     onClick={() => toogleQuestion(q._id)}
                   >
-                    <span className="font-medium text-black dark:text-white">
+                    <span className="text-2xl font-medium text-black dark:text-white">
                       {q.question}
                     </span>
                     <span className="ml-6 flex-shrink-0">
@@ -54,7 +54,7 @@ const FAQ = (props: Props) => {
                 </dt>
                 {activeQuestion === q._id && (
                   <dd className="mt-2 pr-12">
-                    <p className="text-base font-Poppins text-black dark:text-white">
+                    <p className="text-base Roboto text-black dark:text-white">
                       {q.answer}
                     </p>
                   </dd>

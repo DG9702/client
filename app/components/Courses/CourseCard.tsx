@@ -1,15 +1,30 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Ratings from "@/app/utils/Ratings";
 import Image from "next/image";
 import Link from "next/link";
-import { AiOutlineUnorderedList } from "react-icons/ai";
-
+import { FaCirclePlay } from "react-icons/fa6";
 type Props = {
   item: any;
   isProfile?: boolean;
 };
 
 const CourseCard: FC<Props>=({item, isProfile}) => {
+  const [lecture, setLecture]=useState<number>();
+  
+  useEffect(() => {
+    let totalLecture = 0;
+    const courseData=item.courseData;
+    for (let i=0; i<courseData?.length; i++) {
+      for(let j=0; j<courseData[i].tracks.length; j++) {
+        if(courseData[i].tracks[j].typeTrack==="lesson") {
+          
+          totalLecture=totalLecture+1;
+        }
+      }
+    }
+    setLecture(totalLecture);
+  })  
+    
   return (
     <Link
       href={!isProfile ? `/course/${item._id}` : `course-access/${item._id}`}
@@ -24,32 +39,38 @@ const CourseCard: FC<Props>=({item, isProfile}) => {
           alt=""
         />
         <br />
-        <h1 className="font-Poppins text-[16px] text-black dark:text-[#fff] line-clamp-2">
+        <h1 className="Roboto text-[16px] text-black font-semibold dark:text-[#fff] line-clamp-2">
           {item.name}
         </h1>
         <div className="w-full flex items-center justify-between pt-2">
-          <Ratings rating={item.ratings} />
           <h5
             className={`text-black dark:text-[#fff] ${
               isProfile && "hidden 800px:inline"
             }`}
           >
-            {item.purchased} Student
+            {item.ratings} đánh giá
+          </h5>
+          <h5
+            className={`text-black dark:text-[#fff] ${
+              isProfile && "hidden 800px:inline"
+            }`}
+          >
+            {item.purchased} người học
           </h5>
         </div>
-        <div className="w-full flex items-center justify-between pt-3">
+        <div className="w-full flex items-center justify-between py-3">
           <div className="flex">
             <h3 className="text-black dark:text-[#fff]">
-              {item.price === 0 ? "Free" : item.price + " Rs."}
+              {item.price === 0 ? "Free" : item.price}
             </h3>
-            <h5 className="pl-3 text-[14px] mt-[-5px] line-through opacity-80 text-black dark:text-[#fff]">
-              {item.estimatedPrice} Rs.
+            <h5 className="pl-3 text-[14px] line-through opacity-80 text-black dark:text-[#fff]">
+              {item.estimatedPrice === 0 ? "" : item.estimatedPrice}
             </h5>
           </div>
-          <div className="flex items-center pb-3">
-            <AiOutlineUnorderedList size={20} fill="#fff" />
+          <div className="flex items-center">
+            <FaCirclePlay size={20} className="text-[#666] dark:text-white" />
             <h5 className="pl-2 text-black dark:text-[#fff]">
-              {item.courseData?.length} Lectures
+              {lecture} video
             </h5>
           </div>
         </div>

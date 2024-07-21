@@ -25,10 +25,10 @@ const DashboardHeader: FC<Props> = ({open,setOpen}) => {
       </div>
       {open && (
         <div className="w-[350px] h-[50vh] dark:bg-[#111C43] bg-white shadow-xl absolute top-16 z-10 rounded">
-          <h5 className="text-center text-[20px] font-Poppins text-black dark:text-white p-3">
+          <h5 className="text-center text-[20px] Roboto text-black dark:text-white p-3">
             Notifications
           </h5>
-          <div className="dark:bg-[#2d3a4ea1] bg-[#00000013] font-Poppins border-b dark:border-b-[#ffffff47] border-b-[#000000f]">
+          <div className="dark:bg-[#2d3a4ea1] bg-[#00000013] Roboto border-b dark:border-b-[#ffffff47] border-b-[#000000f]">
             <div className="w-full flex items-center justify-between p-2 ">
               <p className="text-black dark:text-white">
                 New Question Received
@@ -47,7 +47,7 @@ const DashboardHeader: FC<Props> = ({open,setOpen}) => {
                 5 days ago
             </p>
           </div>
-          <div className="dark:bg-[#2d3a4ea1] bg-[#00000013] font-Poppins border-b dark:border-b-[#ffffff47] border-b-[#000000f]">
+          <div className="dark:bg-[#2d3a4ea1] bg-[#00000013] Roboto border-b dark:border-b-[#ffffff47] border-b-[#000000f]">
           <div className="w-full flex items-center justify-between p-2 ">
               <p className="text-black dark:text-white">
                 New Question Received

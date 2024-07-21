@@ -25,23 +25,22 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
         skip:loadUser ? false : true
     })
 
-    const handleImage = async (e: any) => {
+    const handleImage=async (e: any) => {
+        const file=e.target.files[0];
         const fileReader=new FileReader();
         
         fileReader.onload=()=>{
             if(fileReader.readyState === 2){
                 const avatar=fileReader.result;
-
-                updateAvatar(
-                    avatar
-                )
+                updateAvatar(avatar)
             }
         }
         fileReader.readAsDataURL(e.target.files[0])
     }
 
     useEffect(()=>{
-        if(isSuccess || success){
+        if(isSuccess||success) {
+            toast.success("Profile update successfully")
             setLoadUser(true)
         }
         if(error || updateError){
@@ -79,7 +78,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
                     name=""
                     id="avatar"
                     className='hidden'
-                    onChange={(e) => handleImage(e)}
+                    onChange={handleImage}
                     accept="image/png,image/jpg,image/jpeg,image/webp"
                 />
                 <label htmlFor="avatar">
@@ -90,31 +89,42 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
             </div>
         </div>
         <br/>
-        <br/>
         <div className='w-full pl-6 800px:pl-10'>
             <form onSubmit={handleSubmit}>
                 <div className='800px:w-[50%] m-auto block pb-4'>
                     <div className='w-[100%]'>
-                        <label className='block pb-2'>Full Name</label>
-                        <input 
-                            type="text" 
-                            className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
-                            required 
-                            value={name}
-                            onChange={(e)=>setName(e.target.value)}
-                        
-                        />                   
+                        <label className={styles.label}>Họ và tên</label>
+                        <div className='relative flex justify-center border border-[#dee3e9] rounded items-center my-2'>
+                            <input 
+                                type="text" 
+                                className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
+                                required 
+                                value={name}
+                                onChange={(e)=>setName(e.target.value)}
+                            
+                            />    
+                        </div>               
                     </div>
                     <div className='w-[100%] pt-2'>
-                        <label className='block pb-2'>Email Address</label>
-                        <input type="text" readOnly className={`${styles.input} !w-[95%] mb-1 800px:mb-0`} required value={user?.email}/>
+                        <label className={styles.label}>Email</label>
+                        <div className='relative flex justify-center border border-[#dee3e9] rounded items-center my-2'>
+                            <input
+                                  type="text"
+                                  readOnly
+                                  className={`${styles.input} !w-[95%] mb-1 800px:mb-0`}
+                                required
+                                  value={user?.email}
+                            />
+                        </div>
                     </div>
-                    <input
-                        className={`w-full 800px:w-[250px] h-[40px] border border-[#37a39a] text-center dark:text-[#fff] text-black rounded-[3px] mt-8 cursor-pointer`}
-                        required 
-                        value="Update"
-                        type="submit"
-                    />
+                    <div className="w-full mt-10">
+                        <input
+                            className={styles.button}
+                            required 
+                            value="Update"
+                            type="submit"
+                        />
+                    </div>
                 </div>
 
             </form>

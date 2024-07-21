@@ -10,7 +10,7 @@ type Props = {};
 
 const page: FC<Props> = (props: Props) => {
   return (
-    <div> 
+    <> 
       <AdminProtected>
         <Heading
             title="Users Analytics | Dev-Learning - Admin"
@@ -27,7 +27,7 @@ const page: FC<Props> = (props: Props) => {
           </div>
           </div>
       </AdminProtected>
-    </div>
+    </>
   );
 };
 

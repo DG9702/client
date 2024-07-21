@@ -11,21 +11,26 @@ const Footer = (props: Props) => {
         <div className='w-[95%] 800px:w-full 800px:max-w-[85%] mx-auto px-2 sm:px-6 lg:px-8 mb-5'>
             <div className='grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4'>
                 <div className='space-y-3'>
-                    <h3 className='text-[20px] font-[600] text-black dark:text-white'>About</h3>
+                    <h3 className='text-[20px] font-[600] text-black dark:text-white'>Về Dev Learning</h3>
                     <ul className='space-y-4'>
                         <li>
                             <Link href="/about" className="text-base text-black dark:text-gray-300 dark:hover:text-white">
-                                Our Story
+                                Giới thiệu
                             </Link>
                         </li>
                         <li>
                             <Link href="/privacy-policy" className="text-base text-black dark:text-gray-300 dark:hover:text-white">
-                                Privacy Policy
+                                Điều khoản
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/privacy-policy" className="text-base text-black dark:text-gray-300 dark:hover:text-white">
+                                Chính sách bảo mật
                             </Link>
                         </li>
                         <li>
                             <Link href="/faq" className="text-base text-black dark:text-gray-300 dark:hover:text-white">
-                                FAQ
+                                Câu hỏi thường gặp
                             </Link>
                         </li>
                     </ul>
@@ -36,12 +41,12 @@ const Footer = (props: Props) => {
                     <ul className='space-y-4'>
                         <li>
                             <Link href="/courses" className="text-base text-black dark:text-gray-300 dark:hover:text-white">
-                                Courses
+                                Khóa học
                             </Link>
                         </li>
                         <li>
                             <Link href="/profile" className="text-base text-black dark:text-gray-300 dark:hover:text-white">
-                                My Account
+                               Tài khoản của tôi
                             </Link>
                         </li>
                         <li>
@@ -53,7 +58,7 @@ const Footer = (props: Props) => {
 
                 </div>
                 <div className='space-y-3'>
-                    <h3 className='text-[20px] font-[600] text-black dark:text-white'>Social Links</h3>
+                    <h3 className='text-[20px] font-[600] text-black dark:text-white'>Liên hệ</h3>
                     <ul className='space-y-4'>
                         <li>
                             <Link href="https://www.youtube.com/channel/UCHz65ne9splmvm-q2w1_HWQ" className="text-base text-black dark:text-gray-300 dark:hover:text-white">
@@ -67,22 +72,22 @@ const Footer = (props: Props) => {
                         </li>
                         <li>
                             <Link href="https://www.github.com/shahriaresajeeb" className="text-base text-black dark:text-gray-300 dark:hover:text-white">
-                                github
+                                facebook
                             </Link>
                         </li>
                     </ul>
 
                 </div>
                 <div>
-                    <h3 className='text-[20px] font-[600] text-black dark:text-white pb-3'>Contact Info</h3>
+                    <h3 className='text-[20px] font-[600] text-black dark:text-white pb-3'>Dev Learning - Học lập trình để đi làm</h3>
                     <p className='text-base text-black dark:text-gray-300 dark:hover:text-white pb-2'>
-                        Call Us:1-885-565-2022
+                        Điện thoại: 0969.231.629
                     </p>
                     <p className='text-base text-black dark:text-gray-300 dark:hover:text-white pb-2'>
-                        Address:+7011 Vermont Ave,Los Angeles, CA 90044
+                        Email: buihaibq9702@gmail.com
                     </p>
                     <p className='text-base text-black dark:text-gray-300 dark:hover:text-white pb-2'>
-                        Mail Us:hello@gmail.com
+                        Địa chỉ: 96 Phố Định Công, Phương Liệt, Thanh Xuân, Hà Nội
                     </p>
                 </div>
 
@@ -90,7 +95,7 @@ const Footer = (props: Props) => {
               <br />
               <br  />
             <p className='text-center text-black dark:text-white'>
-                Copyright 2023 ELearning | All Rights Reserved
+                Copyright 2023 Dev Learning | Nền tảng học lập trình tại Việt Nam
             </p>
         </div>
     </footer>

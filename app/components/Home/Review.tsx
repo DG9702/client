@@ -51,7 +51,7 @@ export const reviews = [
 ];
 const Review = (props: Props) => {
   return (
-    <div className="w-[90%] 800px:w-[85%] m-auto">
+    <div className="w-[90%] 800px:w-[85%] m-auto my-4">
       <div className="w-full 800px:flex items-center ml-6">
         <div className="1000px:w-[40%] 800px:w-[50%] w-full">
           <Image

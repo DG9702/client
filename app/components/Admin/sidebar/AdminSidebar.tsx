@@ -44,8 +44,7 @@ const Item: FC<itemProps> = ({ title, to, icon, selected, setSelected }) => {
       icon={icon}
     >
       <Typography
-        className="!text-[
-16px] !font-Poppins"
+        className="!text-[16px] !Roboto"
       >
         {title}
       </Typography>
@@ -63,7 +62,6 @@ const AdminSidebar = () => {
   const { theme, setTheme } = useTheme();
 
   useEffect(() => setMounted(true), []);
-
   if (!mounted) {
     return null;
   }
@@ -74,29 +72,32 @@ const AdminSidebar = () => {
   return (
     <Box
       sx={{
+        "& .pro-sidebar": {
+          boxShadow: 1
+        },
         "& .pro-sidebar-inner": {
           background: `${
-            theme === "dark" ? "#111C43 !important" : "#fff !important"
+            theme === "dark" ? "#121212 !important" : "#fff !important"
           }`,
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
+          marginRight: "5px !important",
         },
         "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
+          color: "#2190ff !important",
         },
         "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+          color: "#2190ff !important",
         },
         "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
+          padding: "5px 15px 5px 15px !important",
           opacity: 1,
         },
         "& .pro-menu-item": {
           color: `${theme !== "dark" && "#000"}`,
         },
       }}
-      className="!bg-white dark:bg-[#111C43]"
     >
       <ProSidebar
         collapsed={isCollapsed}
@@ -105,7 +106,8 @@ const AdminSidebar = () => {
           top: 0,
           left: 0,
           height: "100vh",
-          width: isCollapsed ? "0%" : "16%",
+          width: isCollapsed? "0%":"16%",
+          overflowY: "hidden",
         }}
       >
         <Menu iconShape="square">
@@ -122,15 +124,15 @@ const AdminSidebar = () => {
                 ml="15px"
               >
                 <Link href="/">
-                  <h3 className="text-[25px] font-Poppins uppercase dark:text-white text-black">
-                    Elearning
+                  <h3 className="text-[25px] font-semibold uppercase dark:text-white text-black">
+                    Dev Learning
                   </h3>
                 </Link>
                 <IconButton
                   onClick={() => setIsCollapased(!isCollapsed)}
                   className="inline-block"
                 >
-                  <ArrowBackIosIcon className="text-white dark:text-[ffffffc1]" />
+                  <ArrowBackIosIcon className="text-black dark:text-white" />
                 </IconButton>
               </Box>
             )}
@@ -143,7 +145,7 @@ const AdminSidebar = () => {
                   alt="profile-user"
                   width={80}
                   height={80}
-                  src={user.avatar ? user.avatar.url : avatarDefault}
+                  src={user?.avatar ? user?.avatar?.url : avatarDefault}
                   style={{
                     cursor: "pointer",
                     borderRadius: "50%",
@@ -164,7 +166,7 @@ const AdminSidebar = () => {
                   sx={{ m: "10px 0 0 0" }}
                   className="!text-[20px] text-black dark:text-[#ffffffc1] capitalize"
                 >
-                  - {user?.role}
+                  - {`${user?.role === "admin" && "Quản trị viên"}`}
                 </Typography>
               </Box>
             </Box>
@@ -172,7 +174,7 @@ const AdminSidebar = () => {
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
-              title="Dashboard"
+              title="Tổng quan"
               to="/admin"
               icon={<HomeOutlinedIcon />}
               selected={selected}
@@ -181,14 +183,14 @@ const AdminSidebar = () => {
 
             <Typography
               variant="h5"
-              sx={{ m: "15px 0 5px 25px" }}
+              sx={{ m: "15px 0 5px 10px" }}
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
             >
-              {!isCollapsed && "Data"}
+              {!isCollapsed && "Người dùng"}
             </Typography>
 
             <Item
-              title="Users"
+              title="Quản lý người dùng"
               to="/admin/users"
               icon={<GropusIcon />}
               selected={selected}
@@ -196,7 +198,7 @@ const AdminSidebar = () => {
             />
 
             <Item
-              title="Invoices"
+              title="Đơn đăng ký"
               to="/admin/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
@@ -206,13 +208,13 @@ const AdminSidebar = () => {
             <Typography
               variant="h5"
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 10px" }}
             >
-              {!isCollapsed && "Content"}
+              {!isCollapsed && "Khóa học"}
             </Typography>
 
             <Item
-              title="Create Course"
+              title="Tạo khóa học"
               to="/admin/create-course"
               icon={<VideoCallIcon />}
               selected={selected}
@@ -220,7 +222,7 @@ const AdminSidebar = () => {
             />
 
             <Item
-              title="Live Courses"
+              title="Quản lý khóa học"
               to="/admin/courses"
               icon={<OndemandVideoIcon />}
               selected={selected}
@@ -230,13 +232,13 @@ const AdminSidebar = () => {
             <Typography
               variant="h5"
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 10px" }}
             >
-              {!isCollapsed && "Customization"}
+              {!isCollapsed && "Tùy chỉnh"}
             </Typography>
 
             <Item
-              title="Hero"
+              title="Biển hiệu"
               to="/admin/hero"
               icon={<WebIcon />}
               selected={selected}
@@ -244,7 +246,7 @@ const AdminSidebar = () => {
             />
 
             <Item
-              title="FAQ"
+              title="Câu hỏi thường gặp"
               to="/admin/faq"
               icon={<QuizIcon />}
               selected={selected}
@@ -252,7 +254,7 @@ const AdminSidebar = () => {
             />
 
             <Item
-              title="Categories"
+              title="Thể loại"
               to="/admin/categories"
               icon={<WysiwygIcon />}
               selected={selected}
@@ -262,13 +264,13 @@ const AdminSidebar = () => {
             <Typography
               variant="h5"
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 10px" }}
             >
-              {!isCollapsed && "Controllers"}
+              {!isCollapsed && "Quản lý đội ngũ"}
             </Typography>
 
             <Item
-              title="Manage Team"
+              title="Đội ngũ"
               to="/admin/team"
               icon={<PeopleOulinedIcon />}
               selected={selected}
@@ -278,42 +280,43 @@ const AdminSidebar = () => {
             <Typography
               variant="h5"
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 10px" }}
             >
               {!isCollapsed && "Analytics"}
             </Typography>
 
             <Item
-              title="Courses Analytics"
+              title="Phân tích khóa học"
               to="/admin/courses-analytics"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Orders Analytics"
-              to="/admin/orders-analytics"
-              icon={<MapOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Users Analytics"
+              title="Phân tích người dùng"
               to="/admin/users-analytics"
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
+            <Item
+              title="Phân tích đơn đăng ký"
+              to="/admin/orders-analytics"
+              icon={<MapOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            
 
             <Typography
               variant="h6"
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 10px" }}
             >
-              {!isCollapsed && "Extras"}
+              {!isCollapsed && "Tiện ích"}
             </Typography>
             <Item
-              title="Settings"
+              title="Cài đặt"
               to="/admin/settings"
               icon={<SettingIcon />}
               selected={selected}
@@ -321,7 +324,7 @@ const AdminSidebar = () => {
             />
             <div onClick={logoutHandler}>
               <Item
-                title="Logout"
+                title="Đăng xuất"
                 to="/profile"
                 icon={<ExitToAppIcon />}
                 selected={selected}

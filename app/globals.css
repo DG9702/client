@@ -22,20 +22,19 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-::-webkit-scrollbar {
-    width: 8px;
+html ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
 }
 
-::-webkit-scrollbar-track {
-    background: #01284d;
+html ::-webkit-scrollbar-track {
+    background-color: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-    background: hsla(0, 0%, 100%, 0.3);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #32ae7e;
+html ::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background-clip: padding-box;
+    background-color: #333;
 }
 
 .ql-editor.ql-blank::before {

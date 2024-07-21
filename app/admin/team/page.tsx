@@ -1,3 +1,4 @@
+'use client'
 import DashBoardHero from '@/app/components/Admin/DashboardHero'
 import AdminSidebar from '@/app/components/Admin/sidebar/AdminSidebar'
 import AllUsers from '@/app/components/Admin/Users/AllUsers'

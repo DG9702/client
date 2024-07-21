@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import AdminSidebar from '@/app/components/Admin/sidebar/AdminSidebar';
 import Heading from '@/app/utils/Heading';

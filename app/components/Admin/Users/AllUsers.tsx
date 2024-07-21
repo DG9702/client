@@ -199,7 +199,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                 color: theme === "dark" ? "#fff" : "#000",
               },
               "& .MuiDataGrid-columnHeaders": {
-                backgroundColor: theme === "dark" ? "#3e4396" : "#A4A9FC",
+                backgroundColor: theme === "dark" ? "#2190ff" : "#5ebbff",
                 borderBottom: "none",
                 color: theme === "dark" ? "#fff" : "#000",
               },
@@ -209,7 +209,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
               "& .MuiDataGrid-footerContainer": {
                 color: theme === "dark" ? "#fff" : "#000",
                 borderTop: "none",
-                backgroundColor: theme === "dark" ? "#3e4396" : "#A4A9FC",
+                backgroundColor: theme === "dark" ? "#2190ff" : "#5ebbff",
               },
               "& .MuiCheckbox-root": {
                 color:

@@ -123,7 +123,7 @@ const EditCourse: FC<Props> = ({ id }) => {
       tags: courseInfo.tags,
       thumbnail: courseInfo.thumbnail,
       level: courseInfo.level,
-      demoVideoUrl: courseInfo.demoUrl,
+      demoUrl: courseInfo.demoUrl,
       totalVideos: courseContentData.length,
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,

@@ -1,3 +1,4 @@
+'use client'
 import React, {FC} from "react";
 import Heading from "../utils/Heading";
 import AdminSidebar from "../components/Admin/sidebar/AdminSidebar";
@@ -8,7 +9,7 @@ type Props = {};
 
 const page: FC<Props> = (props: Props) => {
   return (
-    <div> 
+    <> 
       <AdminProtected>
         <Heading
             title="Elearning - Admin"
@@ -24,7 +25,7 @@ const page: FC<Props> = (props: Props) => {
           </div>
           </div>
       </AdminProtected>
-    </div>
+    </>
   );
 };
 
