@@ -6,7 +6,7 @@ import Header from '../components/Header/Header'
 import Heading from '../utils/Heading'
 import CourseCard from '../components/Courses/CourseCard'
 import Footer from '../components/Footer/Footer'
-import {useGetAllCoursesQuery} from '@/redux/features/courses/coursesApi'
+import {useGetAllCoursesQuery, useGetUsersAllCoursesQuery} from '@/redux/features/courses/coursesApi'
 import {useGetHeroDataQuery} from '@/redux/features/layout/layoutApi'
 import {styles} from '../components/Styles/style'
 
@@ -15,28 +15,38 @@ type Props = {}
 const Page=(props: Props) => {
     const searchParams=useSearchParams();
     const search=searchParams?.get('title');
-    const {data,isLoading}=useGetAllCoursesQuery(undefined,{});
+    const {data,isLoading}=useGetUsersAllCoursesQuery(undefined,{});
     const {data:categoriesData}=useGetHeroDataQuery("Categories",{});
     const [route,setRoute]=useState("Login")
     const [open,setOpen]=useState(false)
     const [courses,setCourses]=useState([])
-    const [category,setCategory]=useState("All")
+    const [category, setCategory]=useState("All");
 
-    useEffect(()=>{
-        if(category==="All"){
-            setCourses(data?.courses);
-        }if(category!=="All"){
-            setCourses(
-                data?.courses.filter((item:any)=>item?.categories?.toLowerCase()===category.toLowerCase())
-            )
+    const categories=categoriesData?.layout?.categories;
+
+    useEffect(() => {
+        if(!search) {
+            if(category==="All"){
+                setCourses(data?.courses);
+            } if(category!=="All") {
+                setCourses(
+                    data?.courses.filter((item:any)=>item?.categoryId === category)
+                )
+            }
         }
         if(search){
-            setCourses(data?.courses.filter((item:any)=>item.name.toLowerCase().includes(search.toLowerCase())))
+            setCourses(data?.courses.filter((item: any) => item.name.toLowerCase().includes(search.toLowerCase())));
+
+            if(category!=="All" && search) {
+                setCourses(
+                    data?.courses.filter((item: any) =>
+                        item?.categoryId===category&&item.name.toLowerCase().includes(search.toLowerCase()
+                )));
+            }
+            
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[data,category,search])
-
-    const categories=categoriesData?.layout?.categories;
 
   return (
     <div>
@@ -66,7 +76,10 @@ const Page=(props: Props) => {
                             {
                                 categories && categories.map((item:any,index:number)=>(
                                     <div key={index}>
-                                        <div className={`h-[35px] ${category===item.title ? "bg-[crimson]" : "bg-[#5050cb]"} m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer`} onClick={()=>setCategory(item.title)}>
+                                        <div
+                                            className={`h-[35px] ${category===item._id? "bg-[crimson]":"bg-[#5050cb]"} m-3 px-3 rounded-[30px] flex items-center justify-center font-Poppins cursor-pointer`}
+                                            onClick={() => setCategory(item._id)}
+                                        >
                                             {item.title}
                                         </div>
                                     </div>
@@ -76,7 +89,7 @@ const Page=(props: Props) => {
                         {
                             courses && courses.length===0 && (
                                 <p className={`${styles.label} justify-center min-h-screen flex items-center`}>
-                                    {search ? "No courses found" :"No courses found in this category.Please try another one!"}
+                                    {search ? "Không tìm thấy khóa học nào" :"Thể loại không có khóa học nào"}
 
                                 </p>
                             )

@@ -59,7 +59,6 @@ const CustomMenu: React.FC<Props>=({
         delay={[0, 900]}
         offset={[12, 8]}
         visible={isOpen}
-        animateFill={true}
         hideOnClick={false}
         render={renderResult}
       

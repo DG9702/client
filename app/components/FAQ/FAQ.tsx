@@ -12,7 +12,7 @@ const FAQ = (props: Props) => {
 
   useEffect(() => {
     if (data) {
-      setQuestion(data.layout.faq);
+      setQuestion(data?.layout?.faq);
     }
   }, [data]);
 
@@ -24,11 +24,11 @@ const FAQ = (props: Props) => {
     <div>
       <div className="w-[90%] 800px:w-[80%] m-auto mb-12">
         <h1 className={`${styles.title} 800px: text-[40px]`}>
-          Frequently Asked Questions
+          Các câu hỏi thường gặp
         </h1>
         <div className="mt-12">
           <div className="space-y-8">
-            {question.map((q) => (
+            {question?.map((q) => (
               <div
                 key={q._id}
                 className={`${

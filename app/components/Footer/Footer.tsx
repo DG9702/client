@@ -37,7 +37,7 @@ const Footer = (props: Props) => {
 
                 </div>
                 <div className='space-y-3'>
-                    <h3 className='text-[20px] font-[600] text-black dark:text-white'>Quick Links</h3>
+                    <h3 className='text-[20px] font-[600] text-black dark:text-white'>Liên kết nhanh</h3>
                     <ul className='space-y-4'>
                         <li>
                             <Link href="/courses" className="text-base text-black dark:text-gray-300 dark:hover:text-white">
@@ -47,11 +47,6 @@ const Footer = (props: Props) => {
                         <li>
                             <Link href="/profile" className="text-base text-black dark:text-gray-300 dark:hover:text-white">
                                Tài khoản của tôi
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/faq" className="text-base text-black dark:text-gray-300 dark:hover:text-white">
-                                Course Dashboard
                             </Link>
                         </li>
                     </ul>
@@ -95,7 +90,7 @@ const Footer = (props: Props) => {
               <br />
               <br  />
             <p className='text-center text-black dark:text-white'>
-                Copyright 2023 Dev Learning | Nền tảng học lập trình tại Việt Nam
+               Copyright © 2023 Dev Learning | Nền tảng học lập trình tại Việt Nam
             </p>
         </div>
     </footer>

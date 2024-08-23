@@ -11,14 +11,14 @@ const page = (props: Props) => {
   return (
     <div>
         <Heading 
-        title="Elearning-Admin"
-        description="Elearning is a platform for students to learn and get help from teachers"
+        title="Dev Learning-Admin"
+        description="Dev Learning is a platform for students to learn and get help from teachers"
         keywords='Programming,MERN,Redux,Machine Learning' />
         <div className='flex'>
             <div className="1500px:w-[16%] w-1/5">
                 <AdminSidebar />
             </div>
-            <div className="w-[85%]">
+            <div className="w-[85%] bg-sky-50 ">
                   <DashboardHeader />
                   <EditHero  />
             </div>

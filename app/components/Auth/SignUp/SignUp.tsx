@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import React, {useEffect, useState} from 'react';
 import {useFormik} from "formik";
@@ -45,7 +46,6 @@ const SignUp: React.FC<Props>=({setRoute, setOpen}) => {
         toast.error(errorData.data.message);
       }
     }
-    console.log("Check: ", isSuccess, data, error);
     }, [isSuccess, error]);
 
     const formik = useFormik({

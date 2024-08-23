@@ -8,6 +8,9 @@ import Loader from '../../Loader/Loader';
 import {Box} from '@mui/material';
 import {format} from 'timeago.js';
 import {useGetAllOrdersQuery} from '@/redux/features/orders/ordersApi';
+import * as timego from 'timeago.js';
+import vi from 'timeago.js/lib/lang/vi';
+timego.register('vi', vi);
 
 type Props= {
     isDashboard?: boolean;
@@ -35,7 +38,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
           userName: user?.name,
           userEmail: user?.email,
           title: course?.name,
-          price: "$" + course?.price,
+          price: course?.price + "VNĐ",
         };
       });
       setOrderData(temp);
@@ -44,16 +47,16 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
 
   const columns: any = [
     { field: "id", headerName: "ID", flex: 0.3 },
-    { field: "userName", headerName: "Name", flex: isDashboard ? 0.6 : 0.5 },
+    { field: "userName", headerName: "Người dùng", flex: isDashboard ? 0.6 : 0.5 },
     ...(isDashboard
       ? []
       : [
           { field: "userEmail", headerName: "Email", flex: 1 },
-          { field: "title", headerName: "Course Title", flex: 1 },
+          { field: "title", headerName: "Khóa học", flex: 1 },
         ]),
-    { field: "price", headerName: "Price", flex: 0.5 },
+    { field: "price", headerName: "Giá", flex: 0.5 },
     ...(isDashboard
-      ? [{ field: "created_at", headerName: "Created At", flex: 0.5 }]
+      ? [{ field: "created_at", headerName: "Được tạo", flex: 0.5 }]
       : [
           {
             field: " ",
@@ -83,7 +86,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
         userEmail: item.userEmail,
         title: item.title,
         price: item.price,
-        created_at: format(item.createdAt),
+        created_at: timego?.format(item.createdAt, 'vi'),
       });
     });
 
@@ -151,7 +154,11 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
               rows={rows}
               columns={columns}
               components={isDashboard? {}:{Toolbar: GridToolbar}}
-            //  slotProps={{toolbar: isDashboard? {} : GridToolbar }}
+              slotProps={{
+                pagination: {
+                  labelRowsPerPage: "Dữ liệu trên mỗi trang"
+                }  
+              }}
             />
           </Box>
         </Box>

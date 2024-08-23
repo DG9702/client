@@ -48,7 +48,6 @@ const ResetPassword: React.FC<Props>=({setRoute, setOpen}) => {
         toast.error(errorData.data.message);
       }
     }
-    console.log("Check: ", isSuccess, data, error);
     }, [isSuccess, error]);
 
     const formik = useFormik({
@@ -61,10 +60,7 @@ const ResetPassword: React.FC<Props>=({setRoute, setOpen}) => {
                 resetToken: token?.token,
             })
         },
-    });
-
-    console.log("Check token: ", token);
-    
+    });    
 
     const {errors, touched, values, handleChange, handleSubmit} = formik;
 

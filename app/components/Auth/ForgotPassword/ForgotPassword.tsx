@@ -27,7 +27,6 @@ const schema = Yup.object().shape({
 });
 
 const ForgotPassword: React.FC<Props>=({setRoute, setOpen}) => {
-    const [show, setShow]=useState<boolean>(false);
     const [forgotPassword, {data, isSuccess, error}]=useForgotPasswordMutation();
 
     const [otp, setOtp]=useState<string>();
@@ -51,7 +50,6 @@ const ForgotPassword: React.FC<Props>=({setRoute, setOpen}) => {
         toast.error(errorData.data.message);
       }
     }
-    console.log("Check: ", isSuccess, data, error);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSuccess, error]);
 
@@ -64,13 +62,11 @@ const ForgotPassword: React.FC<Props>=({setRoute, setOpen}) => {
             };
             await forgotPassword(data);
         },
-    });
-
-    console.log("Check message: ", data);
-    
+    });    
         
     const {errors, touched, values, handleChange, handleSubmit}=formik;
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if(!values.email) {
             setDisabledOtp(true)

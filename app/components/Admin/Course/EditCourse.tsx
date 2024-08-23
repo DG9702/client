@@ -7,24 +7,21 @@ import CourseData from './CourseData';
 import CourseContent from './CourseContent';
 import CoursePreview from './CoursePreview';
 import CourseOptions from './CourseOptions';
-import {useEditCourseMutation, useGetAllCoursesQuery} from '@/redux/features/courses/coursesApi';
+import {useEditCourseMutation, useGetAdminCourseDetailsQuery, useGetCourseDetailsQuery} from '@/redux/features/courses/coursesApi';
+import CourseContentEdit from './CourseContentEdit';
 
 type Props={
     id: string
 }
 
 const EditCourse: FC<Props> = ({ id }) => {
-    const [editCourse,{isSuccess,error}] = useEditCourseMutation({});
+    const [editCourse,{ isLoading, isSuccess, error }] = useEditCourseMutation({});
 
-  const { data, refetch } = useGetAllCoursesQuery(
-    {},
-    { refetchOnMountOrArgChange: true }
-  );
-
+  const { data, refetch } = useGetAdminCourseDetailsQuery(id);
+  
+  const [active, setActive] = useState(0);
   const existingCourseData =
-    data && data.courses.find((i: any) => i._id === id);
-
-  //console.log(existingCourseData);
+    data && data?.data;
 
   useEffect(()=>{
     if(isSuccess){
@@ -39,8 +36,6 @@ const EditCourse: FC<Props> = ({ id }) => {
     }
   },[isSuccess,error]);
 
-  const [active, setActive] = useState(0);
-
   useEffect(() => {
     if (existingCourseData) {
       setCourseInfo({
@@ -50,44 +45,32 @@ const EditCourse: FC<Props> = ({ id }) => {
         estimatedPrice: existingCourseData.estimatedPrice,
         tags: existingCourseData.tags,
         level: existingCourseData.level,
-        demoUrl: existingCourseData.demoVideoUrl,
+        categoryId: existingCourseData.categoryId,
+        demoUrl: existingCourseData.demoUrl,
         thumbnail: existingCourseData?.thumbnail?.url,
       });
-      setBenefits(existingCourseData.benefits);
-      setPrerequisites(existingCourseData.prerequisites);
-      setCourseContentData(existingCourseData.courseData);
+      setBenefits(JSON.parse(JSON.stringify(existingCourseData.benefits)));
+      setPrerequisites(JSON.parse(JSON.stringify(existingCourseData.prerequisites)));
+      setCourseContentData(JSON.parse(JSON.stringify(existingCourseData.courseData)));
     }
   }, [existingCourseData]);
 
   const [courseInfo, setCourseInfo] = useState({
-    name: "",
-    description: "",
-    price: "",
-    estimatedPrice: "",
-    tags: "",
-    level: "",
-    demoUrl: "",
-    thumbnail: "",
-  });
+        name: '',
+        description: '',
+        price: '',
+        estimatedPrice: '',
+        tags: '',
+        level: '',
+        categoryId: '',
+        demoUrl: '',
+        thumbnail: '',
+    });
 
   const [benefits, setBenefits] = useState([{ title: "" }]);
   const [prerequisites, setPrerequisites] = useState([{ title: "" }]);
-  const [courseContentData, setCourseContentData] = useState([
-    {
-      videoUrl: "",
-      title: "",
-      description: "",
-      videoSection: "Untitled Section",
-      videoLength:"",
-      links: [
-        {
-          title: "",
-          url: "",
-        },
-      ],
-      suggestion: "",
-    },
-  ]);
+  const [courseContentData, setCourseContentData] = useState([]);
+
   const [courseData, setCourseData] = useState({});
 
   const handleSubmit = async () => {
@@ -101,18 +84,41 @@ const EditCourse: FC<Props> = ({ id }) => {
     }));
     // Format course content array
     const formattedCourseContentData = courseContentData.map(
-      (courseContent) => ({
-        videoUrl: courseContent.videoUrl,
-        title: courseContent.title,
-        description: courseContent.description,
-        videoSection: courseContent.videoSection,
-        links: courseContent.links.map((link) => ({
-          title: link.title,
-          url: link.url,
-        })),
-        suggestion: courseContent.suggestion,
+      (section: any) => ({
+        _id: section?._id,
+        section: section.section,
+        tracks: section.tracks.map((track: any) => {
+          if (track.typeTrack === 'lesson') {
+            return {
+              trackId: track?.trackId,
+              typeTrack: track.typeTrack,
+              position: track.position,
+              title: track?.title,
+              description: track?.description,
+              videoUrl: track?.videoUrl,
+              duration: track?.duration,
+              links: track?.links,
+              suggestion: track?.suggestion
+            };
+          } else if (track.typeTrack === 'quiz') {
+            return {
+              trackId: track.trackId,
+              typeTrack: track.typeTrack,
+              position: track.position,
+              title: track?.title,
+              description: track?.description,
+              duration: track?.duration,
+              content: track?.content,
+              questions: track?.questions.map((question: any) => ({
+                answer: question.answer,
+                explanation: question.explanation,
+                is_Correct: question.is_Correct
+              }))
+            };
+          }
+        })
       })
-    );
+    );    
 
     //prepare our data project
     const data = {
@@ -123,21 +129,25 @@ const EditCourse: FC<Props> = ({ id }) => {
       tags: courseInfo.tags,
       thumbnail: courseInfo.thumbnail,
       level: courseInfo.level,
+      categoryId: courseInfo.categoryId, // Assuming categories exist
       demoUrl: courseInfo.demoUrl,
-      totalVideos: courseContentData.length,
+      totalSections: courseContentData.length,
+      totalTracks: courseContentData.map(
+        (courseContent: any) => courseContent.tracks.length
+      ),
       benefits: formattedBenefits,
       prerequisites: formattedPrerequisites,
-      courseContent: formattedCourseContentData,
+      courseData: formattedCourseContentData,
     };
     setCourseData(data);
   };
 
-//   console.log(courseData);
-
   const handleCourseCreate = async (e: any) => {
-    const data = courseData;
-    await editCourse({id:existingCourseData?._id,data});
-  };
+    const data=courseData;
+    if(!isLoading) {
+      await editCourse({id:existingCourseData?._id,data});
+    }
+  };  
 
   return (
     <div className="w-full flex min-h-screen">
@@ -163,7 +173,7 @@ const EditCourse: FC<Props> = ({ id }) => {
         )}
 
         {active === 2 && (
-          <CourseContent
+          <CourseContentEdit
             active={active}
             setActive={setActive}
             courseContentData={courseContentData}
@@ -182,7 +192,7 @@ const EditCourse: FC<Props> = ({ id }) => {
           />
         )}
       </div>
-      <div className="w-[20%] mt-[100px] h-screen fixed z-[-1] top-18 right-0">
+      <div className="w-[20%] mt-[100px] h-screen fixed z-[10] top-18 right-0">
         <CourseOptions active={active} setActive={setActive} />
       </div>
     </div>

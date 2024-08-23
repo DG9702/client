@@ -26,13 +26,13 @@ const CoursePlayer:FC<Props> = ({videoUrl}) => {
                 <iframe src={`https://player.vdocipher.com/v2/?otp=${videoData?.otp}&playbackInfo=${videoData.playbackInfo}&player=Vb6clqg0FhOJdm50`}
                     style={{
                         border:0,
-                        width:"90%",
-                        height:"100%",
+                        width: '90%',
+                        height: '100%',
                         position:"absolute",
                         top:0,
                         left:0,
                     }}
-                    allowFullScreen={true}
+                    //allowFullScreen={true}
                     allow="encrypted-media"
                 >
 

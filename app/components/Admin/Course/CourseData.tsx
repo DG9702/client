@@ -20,18 +20,21 @@ const CourseData:FC<Props> = ({
     active,
     setActive
 }) => {
-    const handleBenefitChange=(index:number,value:any)=>{
-        const updatedBenefits=[...benefits];
-        updatedBenefits[index].title=value;
-        setBenefits(updatedBenefits)
+    const handleBenefitChange=(index: number, value: any) => {
+        
+        const updatedBenefits = [...benefits]; // Create a copy of the benefits array
+        updatedBenefits[index].title = value; // Update the title property of the specific object
+        
+        setBenefits(updatedBenefits);
     }
     const handleAddBenefit=()=>{
         setBenefits([...benefits,{title:""}])
     }
     const handlePrerequisitesChange=(index:number,value:any)=>{
-        const updatedPrerequisites=[...prerequisites];
-        updatedPrerequisites[index].title=value;
-        setPrerequisites(updatedPrerequisites)
+         const updatedPrerequisites = [...prerequisites];   
+        // Create a copy of the prerequisites array
+        updatedPrerequisites[index].title = value; // Update the title property of the specific object
+        setPrerequisites(updatedPrerequisites);
     }
     const handleAddPrerequisites=()=>{
         setPrerequisites([...prerequisites,{title:""}])
@@ -39,13 +42,18 @@ const CourseData:FC<Props> = ({
     const prevButton=()=>{
         setActive(active-1);
     }
-    const handleOptions=()=>{
-        if(benefits[benefits.length-1]?.title!=="" && prerequisites[prerequisites.length-1]?.title!==""){
-            setActive(active+1);
-        }else{
-            toast.error("Vui lòng điền vào các trường để chuyển sang bước tiếp theo")
+    const handleOptions = () => {
+        if (
+            benefits.length > 0 &&
+            benefits.every((benefit) => benefit.title !== "") &&
+            prerequisites.length > 0 &&
+            prerequisites.every((prerequisite) => prerequisite.title !== "")
+        ) {
+            setActive(active + 1);
+        } else {
+            toast.error("Vui lòng điền vào các trường để chuyển sang bước tiếp theo");
         }
-    }
+    };    
   return (
     <div className='w-[80%] m-auto mt-24 block'>
         <div className='bg-white dark:bg-[#121212] rounded-lg p-8'>
@@ -63,7 +71,7 @@ const CourseData:FC<Props> = ({
                                     type="text"        
                                     name="Benefit"
                                     placeholder="Nhập những lợi ích khi tham gia khóa học này..."
-                                    value={benefit.title}
+                                    value={benefit?.title}
                                     className={`${styles.input}`}
                                     onChange={(e)=>handleBenefitChange(index,e.target.value)}
                                 />

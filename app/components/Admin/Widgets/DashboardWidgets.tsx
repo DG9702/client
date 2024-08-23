@@ -6,6 +6,7 @@ import OrdersAnalytics from '../Analytics/OrdersAnalytics';
 import UsersAnalytics from '../Analytics/UsersAnalytics';
 import {
     useGetOrdersAnalyticsQuery,
+    useGetRevenuesAnalyticsQuery,
     useGetUsersAnalyticsQuery
 } from '@/redux/features/analytics/analyticsApi';
 import AllInvoices from '../Order/AllInvoices';
@@ -46,11 +47,19 @@ const DashboardWidgets: FC<Props> = ({ open, value }) => {
     const [ordersComparePercentage, setOrdersComparePercentage] =
         useState<any>();
     const [userComparePercentage, setuserComparePercentage] = useState<any>();
+    const {data: revenue}=useGetRevenuesAnalyticsQuery({});
+    
+    const revenuesData: any = [];
+
+    revenue &&
+    revenue.revenues.last12Months.forEach((item: any) => {
+      revenuesData.push({ name: item.month, uv: item.count });
+    });
 
     const { data, isLoading } = useGetUsersAnalyticsQuery({});
     const { data: ordersData, isLoading: ordersLoading } =
         useGetOrdersAnalyticsQuery({});
-
+    const [totalRevenue, setTotalRevenue] = useState(0);
     useEffect(() => {
         if (isLoading && ordersLoading) {
             return;
@@ -99,60 +108,47 @@ const DashboardWidgets: FC<Props> = ({ open, value }) => {
         }
     }, [isLoading, ordersLoading, data, ordersData]);
 
+    useEffect(() => {
+        if (revenue) {
+            const total = revenue.revenues.last12Months.reduce((acc: any, item: any) => acc + item.count, 0);
+            setTotalRevenue(total);
+        }
+    }, [revenue])    
+
     return (
-        <div className="mt-[30px] min-h-screen">
+        <div className="mt-[30px] min-h-screen z-0">
             <div className="grid grid-cols-[75%,25%]">
                 <div className="p-8 ">
                     <UsersAnalytics isDashboard={true} />
                 </div>
 
                 <div className="pt-[80px] pr-8">
-                    <div className="w-full dark:bg-[#111C43] rounded-sm shadow">
-                        <div className="flex items-center p-5 justify-between">
+                    <div className="w-full dark:bg-[#121212] rounded-sm shadow">
+                        <div className="flex items-center p-5 justify-between bg-white dark:bg-[#121212] text-black dark:text-white rounded-lg">
                             <div className="">
                                 <BiBorderLeft className="dark:text-[#45CBA0] text-[#000] text-[30px]" />
-                                <h5 className="pt-2 Roboto dark:text-[#fff] text-black text-[20px]">
-                                    {ordersComparePercentage?.currentMonth}
-                                </h5>
+
                                 <h5 className="py-2 Roboto dark:text-[#45CBA0] text-black text-[20px] font-[400]">
-                                    Sales Obtained
+                                    Doanh thu đạt được
                                 </h5>
                             </div>
                             <div>
-                                <CircularProgressWithLabel
-                                    value={
-                                        ordersComparePercentage?.percentChange >
-                                        0
-                                            ? 100
-                                            : 0
-                                    }
-                                    open={open}
-                                />
                                 <h5 className="text-center pt-4">
-                                    {ordersComparePercentage?.percentChange > 0
-                                        ? '+' +
-                                          ordersComparePercentage?.percentChange.toFixed(
-                                              2
-                                          )
-                                        : '-' +
-                                          ordersComparePercentage?.percentChange.toFixed(
-                                              2
-                                          )}{' '}
-                                    %
+                                    {totalRevenue.toLocaleString('vi')}vnđ
                                 </h5>
                             </div>
                         </div>
                     </div>
 
-                    <div className="w-full dark:bg-[#111C43] rounded-sm shadow my-8">
-                        <div className="flex items-center p-5 justify-between">
+                    <div className="w-full dark:bg-[#121212] rounded-sm shadow my-8">
+                        <div className="flex items-center p-5 justify-between bg-white text-black dark:bg-[#121212] dark:text-white rounded-lg">
                             <div className="">
                                 <PiUsersFourLight className="dark:text-[#45CBA0] text-[#000] text-[30px]" />
                                 <h5 className="pt-2 Roboto dark:text-[#fff] text-black text-[20px]">
                                     {userComparePercentage?.currentMonth}
                                 </h5>
                                 <h5 className="py-2 Roboto dark:text-[#45CBA0] text-black text-[20px] font-[400]">
-                                    New Users
+                                    Người dùng mới
                                 </h5>
                             </div>
                             <div>
@@ -183,12 +179,12 @@ const DashboardWidgets: FC<Props> = ({ open, value }) => {
             </div>
 
             <div className="grid grid-cols-[65%,35%] mt-[-20px]">
-                <div className="dark:bg-[#111c43] w-[94%] mt-[30px] h-[40vh] shadow-sm m-auto">
+                <div className="dark:bg-[#121212] w-[94%] mt-[30px] h-[40vh] bg-white shadow-sm m-auto">
                     <OrdersAnalytics isDashboard={true} />
                 </div>
                 <div className="p-5">
-                    <h5 className="dark:text-[#fff] text-black text-[20px] font-[400] Roboto pb-3">
-                        Recent Transactions
+                    <h5 className="dark:text-[#fff] text-black text-[20px] font-[400] Roboto pb-3">    
+                        Đơn đăng ký gần đây
                     </h5>
                     <AllInvoices isDashboard={true} />
                 </div>

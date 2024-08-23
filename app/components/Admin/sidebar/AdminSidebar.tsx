@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { FC, useEffect, useState } from "react";
@@ -25,7 +26,6 @@ import {
 import avatarDefault from "../../../../public/assets/avatar.png";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import Image from "next/image";
 import { useTheme } from "next-themes";
 
 interface itemProps {
@@ -130,7 +130,7 @@ const AdminSidebar = () => {
                 </Link>
                 <IconButton
                   onClick={() => setIsCollapased(!isCollapsed)}
-                  className="inline-block"
+                  className="inline-block cursor-pointer"
                 >
                   <ArrowBackIosIcon className="text-black dark:text-white" />
                 </IconButton>
@@ -141,7 +141,7 @@ const AdminSidebar = () => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <Image
+                <img
                   alt="profile-user"
                   width={80}
                   height={80}
@@ -166,7 +166,8 @@ const AdminSidebar = () => {
                   sx={{ m: "10px 0 0 0" }}
                   className="!text-[20px] text-black dark:text-[#ffffffc1] capitalize"
                 >
-                  - {`${user?.role === "admin" && "Quản trị viên"}`}
+                  <p>-</p>
+                  {`${user?.role==="admin"? "Quản trị viên":"Quản trị viên cấp cao"}`}
                 </Typography>
               </Box>
             </Box>
@@ -282,7 +283,7 @@ const AdminSidebar = () => {
               className="!text-[18px] text-black dark:text-[#ffffffc1] capitalize !font-[400]"
               sx={{ m: "15px 0 5px 10px" }}
             >
-              {!isCollapsed && "Analytics"}
+              {!isCollapsed && "Phân tích"}
             </Typography>
 
             <Item

@@ -48,7 +48,7 @@ const Hero: FC<Props> = (Props) => {
                         <br />
                         <br />
                         <div className="1100px:w-[78%] w-[90%] h-[50px] bg-transparent">
-                            <div className="relative h-full w-[60%]">
+                            <div className="relative h-full 1000px:w-[60%] w-full">
                                 <input
                                     type="search"
                                     placeholder="Tìm kiếm khóa học...."

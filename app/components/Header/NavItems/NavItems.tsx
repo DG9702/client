@@ -33,7 +33,7 @@ type Props={
 const NavItems:React.FC<Props> = ({activeItem,isMobile}) => {
   return (
     <>
-        <div className='hidden 800px:flex'>
+        <div className='hidden 1000px:flex'>
             {
                 navItemsData && navItemsData.map((i,index)=>(
                     <Link href={`${i.url}`} key={index} passHref>
@@ -46,11 +46,11 @@ const NavItems:React.FC<Props> = ({activeItem,isMobile}) => {
         </div>
         {
             isMobile && (
-                <div className='800px:hidden mt-5'>                      
+                <div className='1000px:hidden mt-5'>                      
                     <div className='w-full text-center py-6'>
                         <Link href={"/"} passHref>
                             <span className={`text-[25px] Roboto font-semibold text-black dark:text-white`}>
-                                ELearning
+                                Dev Learning
                             </span>
                         </Link>
 

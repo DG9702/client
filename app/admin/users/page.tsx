@@ -13,7 +13,7 @@ const page = (props: Props) => {
       <AdminProtected>
         <Heading
             title="Users | Dev-Learning - Admin"
-            description="Elearning is a platform for students to learn and get help from teachers"
+            description="Dev Learning is a platform for students to learn and get help from teachers"
             keywords="Programming,MERN,Redux,Machine Learning"
           />
           <body>
@@ -21,7 +21,7 @@ const page = (props: Props) => {
               <div className="1500px:w-[16%] w-1/5">
                 <AdminSidebar />
               </div>
-              <div className="w-[80%]">
+              <div className="w-[85%] bg-sky-50 ">
                 <DashBoardHero  />
                 <AllUsers isTeam={false} />
               </div>

@@ -5,7 +5,6 @@ import Heading from '@/app/utils/Heading';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import CourseDetails from './CourseDetails';
-import {useCreatePaymentIntentMutation, useGetStripePublishablekeyQuery} from '@/redux/features/orders/ordersApi';
 
 type Props={
     id: string;
@@ -14,20 +13,17 @@ type Props={
 const CourseDetailsPage: FC<Props>=({id}) => {
   const [route,setRoute]=useState("Login")
   const [open,setOpen]=useState(false)
-  const {data,isLoading}=useGetCourseDetailsQuery(id);
-  const [clientSecret, setClientSecret]=useState('');
-  
-  console.log(data);
-  
+  const {data,isLoading, refetch}=useGetCourseDetailsQuery(id, { refetchOnMountOrArgChange: true });
+  const [clientSecret, setClientSecret]=useState('');  
 
   return (
       <>
         {isLoading ? (
-          <Loader />
+          <><Loader /></>
         ) : (
           <>
             <Heading
-              title={data.course.name + " | Dev-learning"}
+              title={data?.course?.name + " | Dev-learning"}
               description={
                 "It is a platform for students to learn and get help from teachersIt is a platform for students to learn and get help from teachers"
               }
@@ -41,7 +37,8 @@ const CourseDetailsPage: FC<Props>=({id}) => {
                 activeItem={1}
             />
               <CourseDetails
-                data={data.course}
+                dataCourse={data.course}
+                refetch={refetch}
                 clientSecret={clientSecret}
                 setRoute={setRoute}
                 setOpen={setOpen} />

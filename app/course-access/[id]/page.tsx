@@ -16,14 +16,14 @@ const CourseAccess = ({ params }: Props) => {
     useEffect(() => {
         if (data) {
             const isPurchased = data.user.courses.find(
-                (item: any) => item._id === id
+                (item: any) => item.courseId === id
             );
             if (!isPurchased) {
-                redirect('/');
+                //redirect('/');
             }
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data, error]);
+    }, [data, error]);    
 
     return (
         <>
@@ -31,7 +31,7 @@ const CourseAccess = ({ params }: Props) => {
                 <Loader />
             ) : (
                 <div>
-                    <CourseContent id={id} user={data.user} />
+                    <CourseContent id={id} user={data?.user} />
                 </div>
             )}
         </>

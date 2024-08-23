@@ -70,7 +70,6 @@ const Verification: React.FC<Props> = ({ setRoute }) => {
   };
 
   const verificationHandler = async () => {
-    // console.log("test");
     const verificationNumber = Object.values(verifyNumber).join("");
     if (verificationNumber.length !== 4) {
       setInvalidError(true);

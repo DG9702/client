@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
-import Image from 'next/image';
 import React, {FC, useEffect, useState} from 'react';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { styles } from '../Styles/style';
@@ -66,7 +66,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
     <>
         <div className='w-full flex justify-center'>
             <div className='relative'>
-                <Image
+                <img
                     src={user?.avatar?.url || avatar ? user.avatar.url || avatar:avatarIcon}
                     alt=""
                     width={120}

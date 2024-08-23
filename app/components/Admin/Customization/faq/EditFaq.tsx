@@ -94,7 +94,7 @@ const EditFaq = (props: Props) => {
     isLoading ? (
         <Loader />
     ) : (
-        <div className="w-[90%] 800px:w-[80%] m-auto mt-[120px]">
+        <div className="w-[90%] 800px:w-[80%] m-auto mt-[120px] bg-white rounded-md shadow-md p-4">
         <div className="mt-12">
           <dl className="space-y-8">
             {questions.map((q: any) => (
@@ -115,7 +115,7 @@ const EditFaq = (props: Props) => {
                       onChange={(e: any) =>
                         handleQuestionChange(q._id, e.target.value)
                       }
-                      placeholder={"Add your question..."}
+                      placeholder={"Thêm câu hỏi thường gặp..."}
                     />
   
                     <span className="ml-6 flex-shrink-0">
@@ -135,7 +135,7 @@ const EditFaq = (props: Props) => {
                       onChange={(e: any) =>
                         handleAnswerChange(q._id, e.target.value)
                       }
-                      placeholder={"Add your answer..."}
+                      placeholder={"Thêm câu trả lời cho câu hỏi..."}
                     />
                     <span className="ml-6 flex-shrink-0">
                       <AiOutlineDelete
@@ -163,7 +163,7 @@ const EditFaq = (props: Props) => {
         <div
           className={`${
             styles.button
-          } !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#cccccc34] 
+          } !w-[100px] !min-h-[40px] !h-[40px] dark:text-white text-black bg-[#2190ff] 
               ${
                 areQuestionsUnchanged(data.layout.faq, questions) ||
                 isAnyQuestionEmpty(questions)
@@ -178,7 +178,7 @@ const EditFaq = (props: Props) => {
               : handleEdit
           }
         >
-          Save
+          Lưu
         </div>
       </div>
     )

@@ -8,6 +8,11 @@ import { SessionProvider } from 'next-auth/react';
 import {useLoadUserQuery} from '@/redux/features/api/apiSlice';
 import Loader from './components/Loader/Loader';
 import './globals.css'
+import {useEffect} from "react";
+
+import socketIO from "socket.io-client";
+const ENDPOINT=process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
+const socketId=socketIO(ENDPOINT,{transports:["websocket"]})
 
 const robotos = Roboto({
   subsets: ["vietnamese"],
@@ -28,7 +33,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body className={`${robotos.variable} ${josefin.variable} !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-black dark:to-black duration-300`}>
+      <body className={`${robotos.variable} ${josefin.variable} bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-black dark:to-black dark:bg-slate-900 duration-300`}>
         <Providers>
           <SessionProvider>
             <ThemeProvider 
@@ -47,7 +52,10 @@ export default function RootLayout({
 }
 
 const Custom:  React.FC<{children:React.ReactNode}> = ({children}) => {
-  const {isLoading} = useLoadUserQuery({});
+  const {isLoading}=useLoadUserQuery({});
+  useEffect(() => {
+    socketId.on("connection", () => {})
+  }, []);
   return (
     <>
       {isLoading ? <Loader  /> : <>{children}</>}

@@ -19,8 +19,8 @@ const CourseInformation: FC<Props> = ({
     const [dragging, setDragging]=useState(false);
     
     const { data } = useGetHeroDataQuery("Categories", {});
-    const [categories, setCategories]=useState([]);
-    
+    const [categories, setCategories]=useState([]);    
+
     useEffect(() => {
         if (data) {
             setCategories(data.layout.categories);
@@ -165,15 +165,15 @@ const CourseInformation: FC<Props> = ({
                                     name=""
                                     id=""
                                     className={`${styles.input} hover:cursor-pointer`}
-                                    value={courseInfo.category}
+                                    value={courseInfo?.categoryId}
                                     onChange={(e: any) =>
-                                        setCourseInfo({ ...courseInfo, categories: e.target.value })
+                                        setCourseInfo({ ...courseInfo, categoryId: e.target.value })
                                     }
                                 >
                                     <option value="" className="dark:bg-black">Lựa chọn thể loại</option>
                                     {categories &&
                                         categories.map((item: any) => (
-                                        <option className="dark:bg-black" value={item.title} key={item._id}>
+                                        <option className="dark:bg-black" value={item?._id} key={item?._id}>
                                             {item.title}
                                         </option>
                                     ))}
@@ -207,7 +207,7 @@ const CourseInformation: FC<Props> = ({
                                     type="text"
                                     name=""
                                     required 
-                                    value={courseInfo.demoUrl}
+                                    value={courseInfo?.demoUrl}
                                     onChange={(e:any)=>setCourseInfo({...courseInfo,demoUrl:e.target.value})}
                                     id="demoUrl"
                                     placeholder="eer74fd"

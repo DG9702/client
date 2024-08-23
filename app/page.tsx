@@ -19,7 +19,7 @@ const Page: FC<Props> = (props) => {
     <>
       <Heading 
         title="Dev-Learning" 
-        description="ELearning is a platform for students to learn and get help from teachers" 
+        description="Dev Learning is a platform for students to learn and get help from teachers" 
         keywords="Programming,MERN,Redux,Machine Learning" 
       />
       <Header
@@ -31,7 +31,6 @@ const Page: FC<Props> = (props) => {
       />
       <Hero />
       <Courses />
-      <Review />
       <FAQ  />
       <Footer />
     </>

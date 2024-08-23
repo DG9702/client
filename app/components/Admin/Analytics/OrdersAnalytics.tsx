@@ -56,8 +56,8 @@ export default function OrdersAnalytics({ isDashboard }: Props) {
   data &&
     data.orders.last12Months.forEach((item: any) => {
       analyticsData.push({ name: item.name, Count: item.count });
-    });
-
+    });  
+  
   return (
     <>
       {isLoading ? (
@@ -65,25 +65,25 @@ export default function OrdersAnalytics({ isDashboard }: Props) {
       ) : (
         <div className={isDashboard ? "h-[30vh]" : "h-screen"}>
           <div
-            className={isDashboard ? "mt-[0px] pl-[40px] mb-2" : "mt-[50px]"}
+            className={isDashboard ? "mt-[0px] pl-[40px] mb-2" : "mt-[60px] mx-10"}
           >
             <h1
               className={`${styles.title} ${
                 isDashboard && "!text-[20px]"
               } px-5 !text-start`}
             >
-              Orders Analytics
+              Thống kê số lượng đăng ký khóa học
             </h1>
             {!isDashboard && (
               <p className={`${styles.label} px-5`}>
-                Last 12 months analytics data{" "}
+                Dữ liệu phân tích của 12 tháng qua{" "}
               </p>
             )}
           </div>
           <div
-            className={`w-full ${
-              !isDashboard ? "h-[90%]" : "h-full"
-            } flex items-center justify-center`}
+            className={`${
+              !isDashboard ? "h-[60%]" : "h-full"
+            } flex items-center justify-center w-[90%] py-8 dark:bg-[#121212] bg-white shadow-md rounded-lg mx-10`}
           >
             <ResponsiveContainer
               width={isDashboard ? "100%" : "90%"}

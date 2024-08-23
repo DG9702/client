@@ -44,8 +44,7 @@ const Login: React.FC<Props>=({setRoute, setOpen}) => {
 
     useEffect(()=>{
         if(isSuccess){
-            toast.success("Login Successfully")
-            setOpen(false);
+            window.location.reload(); // Full page reload
         }
         if(error){
             if("data" in error){
@@ -53,6 +52,7 @@ const Login: React.FC<Props>=({setRoute, setOpen}) => {
                 toast.error(errorData.data.message)
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[isSuccess,error]);
 
     const {errors, touched, values, handleChange, handleSubmit} = formik;

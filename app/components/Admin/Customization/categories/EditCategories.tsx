@@ -75,7 +75,7 @@ const EditCategories = (props: Props) => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="mt-[120px] text-center">
+        <div className="w-[50%] 800px:w-[80%] m-auto mt-[120px] bg-white rounded-md shadow-md p-4">
           <h1 className={`${styles.title}`}>All Categories</h1>
           {categories &&
             categories.map((item: any, index: number) => {

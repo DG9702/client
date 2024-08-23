@@ -63,13 +63,12 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
   }, [deleteUserError, roleError, isSuccess, deleteUserSuccess]);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "name", headerName: "Name", flex: 1 },
-    { field: "email", headerName: "Email", flex: 0.5 },
-    { field: "role", headerName: "Role", flex: 0.5 },
-    { field: "courses", headerName: "Purchased Courses", flex: 0.5 },
-    { field: "created_at", headerName: "Joined At", flex: 0.5 },
-
+    {field:"id",headerName:"ID",flex:0.3},
+    {field:"name",headerName:"Người dùng",flex:.5},
+    {field:"email",headerName:"Email",flex:0.5},
+    {field:"role",headerName:"Quyền",flex:.5},
+    {field:"courses",headerName:"Khóa học đã đăng ký",flex:0.5},
+    {field:"created_at",headerName:"Tham gia vào",flex:0.5},
     {
       field: " ",
       headerName: "Email",
@@ -86,7 +85,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
     },
     {
       field: "",
-      headerName: "Delete",
+      headerName: "Xóa",
       flex: 0.5,
       renderCell: (params: any) => {
         return (
@@ -107,8 +106,6 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
       },
     },
   ];
-
-  // console.log(userId);
 
   const rows: any = [];
 
@@ -151,11 +148,12 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
   };
 
   return (
-    <div className="mt-[120px]">
+    <div className="mt-[120px] mx-5">
       {isLoading ? (
         <Loader />
       ) : (
-        <Box m="20px">
+          <Box m="20px"
+          >
           {isTeam && (
             <div className="w-full flex justify-end">
               <div
@@ -164,7 +162,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                   setActive(!active);
                 }}
               >
-                Add new Member
+                Thêm thành viên mới
               </div>
             </div>
           )}
@@ -220,7 +218,12 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
               },
             }}
           >
-            <DataGrid checkboxSelection rows={rows} columns={columns} />
+            <DataGrid checkboxSelection rows={rows} columns={columns}
+                slotProps={{
+                pagination: {
+                  labelRowsPerPage: "Dữ liệu trên mỗi trang"
+                }  
+              }} />
           </Box>
           {active && (
             <Modal
@@ -230,7 +233,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
               aria-describedby="modal-modal-description"
             >
               <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[450px] bg-white dark:bg-slate-900 rounded-[8px] shadow p-4 outline-none">
-                <h1 className={`${styles.title}`}>Add new member</h1>
+                <h1 className={`${styles.title}`}>Thêm thành viên mới</h1>
                 <div className="mt-4">
                   <input
                     type="email"
@@ -253,7 +256,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                     className={`${styles.button} my-6 !h-[30px]`}
                     onClick={handleSubmit}
                   >
-                    Submit
+                    Gửi
                   </div>
                 </div>
               </Box>
@@ -268,7 +271,7 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
             >
               <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[450px] bg-white dark:bg-slate-900 rounded-[8px] shadow p-4 outline-none">
                 <h1 className={`${styles.title}`}>
-                  Are you sure you want to delete this user?
+                  Có phải bạn muốn xóa người dùng này?
                 </h1>
                 <div className="flex w-full items-center justify-between mb-6 mt-4">
                   <div
@@ -277,13 +280,13 @@ const AllUsers: FC<Props> = ({ isTeam }) => {
                       setOpen(!open);
                     }}
                   >
-                    Cancel
+                    Hủy
                   </div>
                   <div
                     className={`${styles.button} !w-[120px] h-[30px] bg-[#d63f3f]`}
                     onClick={handleDelete}
                   >
-                    Delete
+                    Xóa
                   </div>
                 </div>
               </Box>
